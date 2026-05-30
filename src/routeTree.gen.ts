@@ -10,11 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResultatenRouteImport } from './routes/resultaten'
+import { Route as ProfielRouteImport } from './routes/profiel'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DiscussieIdRouteImport } from './routes/discussie.$id'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultatenRoute = ResultatenRouteImport.update({
+  id: '/resultaten',
+  path: '/resultaten',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfielRoute = ProfielRouteImport.update({
+  id: '/profiel',
+  path: '/profiel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -22,31 +35,59 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DiscussieIdRoute = DiscussieIdRouteImport.update({
+  id: '/discussie/$id',
+  path: '/discussie/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/profiel': typeof ProfielRoute
+  '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/discussie/$id': typeof DiscussieIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/profiel': typeof ProfielRoute
+  '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/discussie/$id': typeof DiscussieIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/profiel': typeof ProfielRoute
+  '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/discussie/$id': typeof DiscussieIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/profiel'
+    | '/resultaten'
+    | '/sitemap.xml'
+    | '/discussie/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml'
-  id: '__root__' | '/' | '/sitemap.xml'
+  to: '/' | '/profiel' | '/resultaten' | '/sitemap.xml' | '/discussie/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/profiel'
+    | '/resultaten'
+    | '/sitemap.xml'
+    | '/discussie/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProfielRoute: typeof ProfielRoute
+  ResultatenRoute: typeof ResultatenRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  DiscussieIdRoute: typeof DiscussieIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +99,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resultaten': {
+      id: '/resultaten'
+      path: '/resultaten'
+      fullPath: '/resultaten'
+      preLoaderRoute: typeof ResultatenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profiel': {
+      id: '/profiel'
+      path: '/profiel'
+      fullPath: '/profiel'
+      preLoaderRoute: typeof ProfielRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -65,12 +120,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/discussie/$id': {
+      id: '/discussie/$id'
+      path: '/discussie/$id'
+      fullPath: '/discussie/$id'
+      preLoaderRoute: typeof DiscussieIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProfielRoute: ProfielRoute,
+  ResultatenRoute: ResultatenRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  DiscussieIdRoute: DiscussieIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
