@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResultatenRouteImport } from './routes/resultaten'
+import { Route as ProfielRouteImport } from './routes/profiel'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DiscussieIdRouteImport } from './routes/discussie.$id'
 
@@ -22,6 +23,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ResultatenRoute = ResultatenRouteImport.update({
   id: '/resultaten',
   path: '/resultaten',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfielRoute = ProfielRouteImport.update({
+  id: '/profiel',
+  path: '/profiel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,12 +43,14 @@ const DiscussieIdRoute = DiscussieIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/discussie/$id': typeof DiscussieIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/discussie/$id': typeof DiscussieIdRoute
@@ -50,20 +58,33 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/discussie/$id': typeof DiscussieIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/resultaten' | '/sitemap.xml' | '/discussie/$id'
+  fullPaths:
+    | '/'
+    | '/profiel'
+    | '/resultaten'
+    | '/sitemap.xml'
+    | '/discussie/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/resultaten' | '/sitemap.xml' | '/discussie/$id'
-  id: '__root__' | '/' | '/resultaten' | '/sitemap.xml' | '/discussie/$id'
+  to: '/' | '/profiel' | '/resultaten' | '/sitemap.xml' | '/discussie/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/profiel'
+    | '/resultaten'
+    | '/sitemap.xml'
+    | '/discussie/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProfielRoute: typeof ProfielRoute
   ResultatenRoute: typeof ResultatenRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   DiscussieIdRoute: typeof DiscussieIdRoute
@@ -85,6 +106,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResultatenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profiel': {
+      id: '/profiel'
+      path: '/profiel'
+      fullPath: '/profiel'
+      preLoaderRoute: typeof ProfielRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +132,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProfielRoute: ProfielRoute,
   ResultatenRoute: ResultatenRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   DiscussieIdRoute: DiscussieIdRoute,
