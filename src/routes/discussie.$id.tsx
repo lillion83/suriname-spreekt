@@ -5,8 +5,9 @@ import { StatementCard } from "@/components/StatementCard";
 import { getStatement, seedComments, categoryLabel } from "@/data/statements";
 import { useI18n, formatDate } from "@/lib/i18n";
 import { useUser } from "@/lib/useUser";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ArrowLeft, MessageSquare, Send } from "lucide-react";
+import { AIInsights } from "@/components/AIInsights";
 
 export const Route = createFileRoute("/discussie/$id")({
   loader: ({ params }) => {
