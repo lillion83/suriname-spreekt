@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VoorstellenRouteImport } from './routes/voorstellen'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResultatenRouteImport } from './routes/resultaten'
 import { Route as ProfielRouteImport } from './routes/profiel'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DiscussieIdRouteImport } from './routes/discussie.$id'
 
+const VoorstellenRoute = VoorstellenRouteImport.update({
+  id: '/voorstellen',
+  path: '/voorstellen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/voorstellen': typeof VoorstellenRoute
   '/discussie/$id': typeof DiscussieIdRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/voorstellen': typeof VoorstellenRoute
   '/discussie/$id': typeof DiscussieIdRoute
 }
 export interface FileRoutesById {
@@ -61,6 +69,7 @@ export interface FileRoutesById {
   '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/voorstellen': typeof VoorstellenRoute
   '/discussie/$id': typeof DiscussieIdRoute
 }
 export interface FileRouteTypes {
@@ -70,15 +79,23 @@ export interface FileRouteTypes {
     | '/profiel'
     | '/resultaten'
     | '/sitemap.xml'
+    | '/voorstellen'
     | '/discussie/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/profiel' | '/resultaten' | '/sitemap.xml' | '/discussie/$id'
+  to:
+    | '/'
+    | '/profiel'
+    | '/resultaten'
+    | '/sitemap.xml'
+    | '/voorstellen'
+    | '/discussie/$id'
   id:
     | '__root__'
     | '/'
     | '/profiel'
     | '/resultaten'
     | '/sitemap.xml'
+    | '/voorstellen'
     | '/discussie/$id'
   fileRoutesById: FileRoutesById
 }
@@ -87,11 +104,19 @@ export interface RootRouteChildren {
   ProfielRoute: typeof ProfielRoute
   ResultatenRoute: typeof ResultatenRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VoorstellenRoute: typeof VoorstellenRoute
   DiscussieIdRoute: typeof DiscussieIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/voorstellen': {
+      id: '/voorstellen'
+      path: '/voorstellen'
+      fullPath: '/voorstellen'
+      preLoaderRoute: typeof VoorstellenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -135,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfielRoute: ProfielRoute,
   ResultatenRoute: ResultatenRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VoorstellenRoute: VoorstellenRoute,
   DiscussieIdRoute: DiscussieIdRoute,
 }
 export const routeTree = rootRouteImport
