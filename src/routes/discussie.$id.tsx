@@ -41,6 +41,7 @@ function DiscussionPage() {
     .filter((c) => c.statementId === id)
     .map((c) => ({ id: c.id, user: username, text: c.text, at: c.at, own: true }));
   const all = [...own, ...seeded];
+  const allTexts = useMemo(() => all.map((c) => c.text), [all]);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
