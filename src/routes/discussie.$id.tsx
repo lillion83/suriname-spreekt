@@ -141,15 +141,18 @@ function DiscussionPage() {
           </div>
 
           <div className="lg:col-span-2">
-            <div className="lg:sticky lg:top-24">
-              <h2 className="font-display text-sm uppercase tracking-[0.2em] text-primary mb-3">
-                {t("discuss.results")}
-              </h2>
-              <StatementCard
-                statement={statement}
-                showContext={false}
-                showDiscussLink={false}
-              />
+            <div className="lg:sticky lg:top-24 space-y-6">
+              <div>
+                <h2 className="font-display text-sm uppercase tracking-[0.2em] text-primary mb-3">
+                  {t("discuss.results")}
+                </h2>
+                <StatementCard
+                  statement={statement}
+                  showContext={false}
+                  showDiscussLink={false}
+                />
+              </div>
+              <AIInsights statement={statement} commentTexts={allTexts} />
             </div>
           </div>
         </div>
