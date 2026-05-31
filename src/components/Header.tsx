@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { Globe, Home, BarChart3, User, Menu } from "lucide-react";
+import { Globe, Home, BarChart3, User, Menu, Megaphone } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -13,6 +13,7 @@ export function Header() {
   const items = [
     { to: "/", label: t("nav.home"), icon: Home },
     { to: "/resultaten", label: t("nav.results"), icon: BarChart3 },
+    { to: "/voorstellen", label: lang === "nl" ? "Voorstellen" : "Proposals", icon: Megaphone },
     { to: "/profiel", label: t("nav.profile"), icon: User },
   ] as const;
 
