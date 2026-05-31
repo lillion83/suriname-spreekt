@@ -5,8 +5,9 @@ import { StatementCard } from "@/components/StatementCard";
 import { getStatement, seedComments, categoryLabel } from "@/data/statements";
 import { useI18n, formatDate } from "@/lib/i18n";
 import { useUser } from "@/lib/useUser";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ArrowLeft, MessageSquare, Send } from "lucide-react";
+import { AIInsights } from "@/components/AIInsights";
 
 export const Route = createFileRoute("/discussie/$id")({
   loader: ({ params }) => {
@@ -40,6 +41,7 @@ function DiscussionPage() {
     .filter((c) => c.statementId === id)
     .map((c) => ({ id: c.id, user: username, text: c.text, at: c.at, own: true }));
   const all = [...own, ...seeded];
+  const allTexts = useMemo(() => all.map((c) => c.text), [all]);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,15 +142,18 @@ function DiscussionPage() {
           </div>
 
           <div className="lg:col-span-2">
-            <div className="lg:sticky lg:top-24">
-              <h2 className="font-display text-sm uppercase tracking-[0.2em] text-primary mb-3">
-                {t("discuss.results")}
-              </h2>
-              <StatementCard
-                statement={statement}
-                showContext={false}
-                showDiscussLink={false}
-              />
+            <div className="lg:sticky lg:top-24 space-y-6">
+              <div>
+                <h2 className="font-display text-sm uppercase tracking-[0.2em] text-primary mb-3">
+                  {t("discuss.results")}
+                </h2>
+                <StatementCard
+                  statement={statement}
+                  showContext={false}
+                  showDiscussLink={false}
+                />
+              </div>
+              <AIInsights statement={statement} commentTexts={allTexts} />
             </div>
           </div>
         </div>
