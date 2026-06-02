@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { Globe, Home, BarChart3, User, Menu, Megaphone, LineChart } from "lucide-react";
+import { Globe, Home, BarChart3, User, Menu, Megaphone, LineChart, Newspaper } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -12,11 +12,15 @@ export function Header() {
 
   const items = [
     { to: "/", label: t("nav.home"), icon: Home },
+    { to: "/nieuws", label: lang === "nl" ? "Nieuws" : "News", icon: Newspaper },
     { to: "/resultaten", label: t("nav.results"), icon: BarChart3 },
-    { to: "/dashboard", label: lang === "nl" ? "Index" : "Index", icon: LineChart },
+    { to: "/dashboard", label: "Index", icon: LineChart },
     { to: "/voorstellen", label: lang === "nl" ? "Voorstellen" : "Proposals", icon: Megaphone },
     { to: "/profiel", label: t("nav.profile"), icon: User },
   ] as const;
+
+  // Mobile bottom bar: keep the most-used 5
+  const mobileItems = items.filter((i) => i.to !== "/voorstellen");
 
   return (
     <>
