@@ -108,7 +108,7 @@ export function Header() {
       {/* Mobile bottom tab bar */}
       <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur-xl">
         <div className="grid grid-cols-5 h-16">
-          {items.map((item) => {
+          {mobileItems.map((item) => {
             const active = item.to === "/" ? path === "/" : path.startsWith(item.to);
             const Icon = item.icon;
             return (
