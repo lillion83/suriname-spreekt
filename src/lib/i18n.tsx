@@ -129,5 +129,6 @@ export function formatDate(iso: string, lang: Lang) {
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
