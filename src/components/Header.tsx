@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { Globe, Home, BarChart3, User, Menu, Megaphone } from "lucide-react";
+import { Globe, Home, BarChart3, User, Menu, Megaphone, LineChart } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -13,6 +13,7 @@ export function Header() {
   const items = [
     { to: "/", label: t("nav.home"), icon: Home },
     { to: "/resultaten", label: t("nav.results"), icon: BarChart3 },
+    { to: "/dashboard", label: lang === "nl" ? "Index" : "Index", icon: LineChart },
     { to: "/voorstellen", label: lang === "nl" ? "Voorstellen" : "Proposals", icon: Megaphone },
     { to: "/profiel", label: t("nav.profile"), icon: User },
   ] as const;
@@ -102,7 +103,7 @@ export function Header() {
 
       {/* Mobile bottom tab bar */}
       <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-background/95 backdrop-blur-xl">
-        <div className="grid grid-cols-4 h-16">
+        <div className="grid grid-cols-5 h-16">
           {items.map((item) => {
             const active = item.to === "/" ? path === "/" : path.startsWith(item.to);
             const Icon = item.icon;
