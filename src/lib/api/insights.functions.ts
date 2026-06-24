@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import Anthropic from "@anthropic-ai/sdk";
 
 const InputSchema = z.object({
   statementNl: z.string(),
@@ -21,9 +20,8 @@ export type InsightsResult = {
 export const getInsights = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => InputSchema.parse(input))
   .handler(async ({ data }): Promise<InsightsResult> => {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) throw new Error("Missing ANTHROPIC_API_KEY");
-    const anthropic = new Anthropic({ apiKey });
+    const apiKey = process.env.OPENROUTER_API_KEY;
+    if (!apiKey) throw new Error("Missing OPENROUTER_API_KEY");
 
     const total = data.votes.agree + data.votes.neutral + data.votes.disagree;
     const pct = (n: number) => (total === 0 ? 0 : Math.round((n / total) * 100));
@@ -74,14 +72,29 @@ Return JSON with exactly these fields:
   "sentimentScore": number between -100 (very negative) and 100 (very positive)
 }`;
 
-    const message = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 1024,
-      system: lang === "nl" ? sysNl : sysEn,
-      messages: [{ role: "user", content: userPrompt }],
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "meta-llama/llama-3.3-8b-instruct:free",
+        messages: [
+          { role: "system", content: lang === "nl" ? sysNl : sysEn },
+          { role: "user", content: userPrompt },
+        ],
+        response_format: { type: "json_object" },
+      }),
     });
 
-    const content = message.content[0].type === "text" ? message.content[0].text : "{}";
+    if (!res.ok) {
+      if (res.status === 429) throw new Error("rate_limited");
+      throw new Error(`OpenRouter error ${res.status}`);
+    }
+
+    const json = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+    const content = json.choices?.[0]?.message?.content ?? "{}";
     let parsed: Partial<InsightsResult> = {};
     try {
       parsed = JSON.parse(content);
