@@ -124,6 +124,7 @@ export function AIInsights({ statement, commentTexts }: Props) {
           <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
           <div className="flex-1">
             <p className="font-semibold">{l.error}</p>
+            {error && <p className="mt-1 text-xs opacity-80 break-words">{error}</p>}
             <button
               onClick={() => setNonce((n) => n + 1)}
               className="mt-2 inline-flex items-center gap-1 rounded-full bg-destructive px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-destructive-foreground"
