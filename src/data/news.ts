@@ -1,7 +1,7 @@
-import havenImg from "@/assets/news-haven.jpg.asset.json";
-import rainforestImg from "@/assets/news-rainforest.jpg.asset.json";
-import onderwijsImg from "@/assets/news-onderwijs.jpg.asset.json";
-import parlementImg from "@/assets/news-parlement.jpg.asset.json";
+const havenImg = "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=1024&q=80";
+const rainforestImg = "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1024&q=80";
+const onderwijsImg = "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1024&q=80";
+const parlementImg = "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=1024&q=80";
 
 export interface NewsItem {
   id: string;
@@ -24,7 +24,7 @@ export const news: NewsItem[] = [
       "Een internationaal consortium tekende deze week een intentieverklaring voor uitbreiding van de containercapaciteit met 60% en de bouw van een tweede aanlegsteiger. De regering verwacht 1.200 nieuwe banen in de logistieke sector binnen drie jaar.",
     summaryEn:
       "An international consortium signed a letter of intent this week for a 60% expansion of container capacity and the construction of a second pier. The government expects 1,200 new logistics jobs within three years.",
-    image: havenImg.url,
+    image: havenImg,
     source: "De Ware Tijd",
     publishedAt: "2026-05-30",
     statementId: "kleinschalige-landbouw",
@@ -37,7 +37,7 @@ export const news: NewsItem[] = [
       "Een coalitie van milieu-organisaties presenteerde een wetsvoorstel dat 70% van het Surinaamse regenwoud onaantastbaar zou maken voor mijnbouw en houtkap. De discussie verdeelt voor- en tegenstanders langs economische lijnen.",
     summaryEn:
       "A coalition of environmental organisations presented a bill that would make 70% of Suriname's rainforest off-limits to mining and logging. The debate splits supporters and opponents along economic lines.",
-    image: rainforestImg.url,
+    image: rainforestImg,
     source: "Starnieuws",
     publishedAt: "2026-05-29",
     statementId: "amazone-bescherming",
@@ -50,7 +50,7 @@ export const news: NewsItem[] = [
       "Uit een nieuw onderzoek van het Nationaal Onderwijsinstituut blijkt dat duizenden leerlingen in het binnenland en de districten geen toegang hebben tot digitaal lesmateriaal. Het ministerie kondigt een nieuw programma aan.",
     summaryEn:
       "A new study by the National Education Institute shows that thousands of students in the interior and districts have no access to digital learning materials. The ministry has announced a new programme.",
-    image: onderwijsImg.url,
+    image: onderwijsImg,
     source: "Suriname Herald",
     publishedAt: "2026-05-28",
     statementId: "gratis-internet",
@@ -63,7 +63,7 @@ export const news: NewsItem[] = [
       "Surinaamse gemeenschappen in Nederland en de VS bundelen hun krachten in een petitie die nu meer dan 40.000 handtekeningen heeft. Ze eisen volwaardig stemrecht bij de eerstvolgende nationale verkiezingen.",
     summaryEn:
       "Surinamese communities in the Netherlands and the US are joining forces in a petition that has now gathered over 40,000 signatures. They demand full voting rights at the next national elections.",
-    image: parlementImg.url,
+    image: parlementImg,
     source: "NOS Caribbean",
     publishedAt: "2026-05-27",
     statementId: "diaspora-stem",
