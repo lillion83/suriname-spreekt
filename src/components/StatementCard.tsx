@@ -4,7 +4,6 @@ import { ThumbsUp, ThumbsDown, Minus, Flame, TrendingUp, Lock, MessageSquare, Ar
 import { useI18n, formatDate } from "@/lib/i18n";
 import { categoryLabel, type Statement } from "@/data/statements";
 import { useUser, type Choice } from "@/lib/useUser";
-import { useTallies, useCastVote } from "@/lib/useTallies";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -19,17 +18,11 @@ export function StatementCard({ statement, size = "md", className, showContext =
   const { lang, t } = useI18n();
   const { votes: userVotes, recordVote } = useUser();
   const choice = userVotes[statement.id] ?? null;
-  const { data: tallies } = useTallies();
-  const castVote = useCastVote();
 
   const liveVotes = useMemo(() => {
-    // Prefer real server tallies (which already include the user's vote after
-    // it's cast); otherwise fall back to the static seed, bumped locally.
-    const server = tallies?.[statement.id];
-    if (server) return server;
     if (!choice) return statement.votes;
     return { ...statement.votes, [choice]: statement.votes[choice] + 1 };
-  }, [tallies, choice, statement.id, statement.votes]);
+  }, [choice, statement.votes]);
 
   const total = liveVotes.agree + liveVotes.neutral + liveVotes.disagree;
   const pct = (n: number) => (total === 0 ? 0 : Math.round((n / total) * 100));
@@ -37,7 +30,6 @@ export function StatementCard({ statement, size = "md", className, showContext =
   const vote = (c: Choice) => {
     if (choice || statement.closed) return;
     recordVote(statement.id, c);
-    castVote.mutate({ statementId: statement.id, choice: c, baseline: statement.votes });
   };
 
   const text = lang === "nl" ? statement.nl : statement.en;

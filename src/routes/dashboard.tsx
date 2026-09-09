@@ -36,7 +36,8 @@ export const Route = createFileRoute("/dashboard")({
   component: DashboardPage,
 });
 
-const REF_NOW = Date.now();
+// Reference "now" anchored to dataset for deterministic SSR
+const REF_NOW = new Date("2026-06-02T00:00:00Z").getTime();
 const DAY = 86400000;
 
 function totalVotes(s: (typeof statements)[number]) {
