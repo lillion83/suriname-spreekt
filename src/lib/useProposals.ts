@@ -17,6 +17,7 @@ export interface Proposal {
 
 const PROPOSALS_KEY = "ss-proposals";
 const PROPOSAL_VOTES_KEY = "ss-proposal-votes";
+const STATUS_KEY = "ss-proposal-status";
 
 export type ProposalVote = "support" | "oppose";
 
@@ -132,7 +133,28 @@ export function useProposals() {
     };
   }, []);
 
-  const all: Proposal[] = [...userProposals, ...seeds];
+  const [overrides, setOverrides] = useState<Record<string, ProposalStatus>>({});
+  useEffect(() => {
+    const load = () => setOverrides(read<Record<string, ProposalStatus>>(STATUS_KEY, {}));
+    load();
+    window.addEventListener("ss-proposal-update", load);
+    window.addEventListener("storage", load);
+    return () => {
+      window.removeEventListener("ss-proposal-update", load);
+      window.removeEventListener("storage", load);
+    };
+  }, []);
+
+  const all: Proposal[] = [...userProposals, ...seeds].map((p) =>
+    overrides[p.id] ? { ...p, status: overrides[p.id] } : p,
+  );
+
+  const setStatus = useCallback((proposalId: string, status: ProposalStatus) => {
+    const next = { ...read<Record<string, ProposalStatus>>(STATUS_KEY, {}), [proposalId]: status };
+    write(STATUS_KEY, next);
+    setOverrides(next);
+    window.dispatchEvent(new Event("ss-proposal-update"));
+  }, []);
 
   const addProposal = useCallback(
     (input: { title: string; description: string; category: Category; author: string }) => {
@@ -175,7 +197,14 @@ export function useProposals() {
     window.dispatchEvent(new Event("ss-proposal-update"));
   }, []);
 
-  return { proposals: all, votes, addProposal, vote };
+  return { proposals: all, votes, addProposal, vote, setStatus };
+}
+
+/** Moderation queue: pending proposals that reached the support threshold, most support first. */
+export function moderationQueue(list: Proposal[], votes: Record<string, ProposalVote>) {
+  return list
+    .filter((p) => p.status === "pending" && tallies(p, votes).support >= MODERATION_THRESHOLD)
+    .sort((a, b) => tallies(b, votes).support - tallies(a, votes).support);
 }
 
 export function tallies(p: Proposal, votes: Record<string, ProposalVote>) {

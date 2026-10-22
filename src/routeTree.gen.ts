@@ -9,38 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VoorstellenRouteImport } from './routes/voorstellen'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ResultatenRouteImport } from './routes/resultaten'
-import { Route as ProfielRouteImport } from './routes/profiel'
-import { Route as NieuwsRouteImport } from './routes/nieuws'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as NieuwsRouteImport } from './routes/nieuws'
+import { Route as ProfielRouteImport } from './routes/profiel'
+import { Route as ResultatenRouteImport } from './routes/resultaten'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StellingenRouteImport } from './routes/stellingen'
+import { Route as VoorstellenRouteImport } from './routes/voorstellen'
 import { Route as DiscussieIdRouteImport } from './routes/discussie.$id'
 
-const VoorstellenRoute = VoorstellenRouteImport.update({
-  id: '/voorstellen',
-  path: '/voorstellen',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResultatenRoute = ResultatenRouteImport.update({
-  id: '/resultaten',
-  path: '/resultaten',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfielRoute = ProfielRouteImport.update({
-  id: '/profiel',
-  path: '/profiel',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NieuwsRoute = NieuwsRouteImport.update({
-  id: '/nieuws',
-  path: '/nieuws',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -48,9 +29,34 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const NieuwsRoute = NieuwsRouteImport.update({
+  id: '/nieuws',
+  path: '/nieuws',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfielRoute = ProfielRouteImport.update({
+  id: '/profiel',
+  path: '/profiel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultatenRoute = ResultatenRouteImport.update({
+  id: '/resultaten',
+  path: '/resultaten',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StellingenRoute = StellingenRouteImport.update({
+  id: '/stellingen',
+  path: '/stellingen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoorstellenRoute = VoorstellenRouteImport.update({
+  id: '/voorstellen',
+  path: '/voorstellen',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DiscussieIdRoute = DiscussieIdRouteImport.update({
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stellingen': typeof StellingenRoute
   '/voorstellen': typeof VoorstellenRoute
   '/discussie/$id': typeof DiscussieIdRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stellingen': typeof StellingenRoute
   '/voorstellen': typeof VoorstellenRoute
   '/discussie/$id': typeof DiscussieIdRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/profiel': typeof ProfielRoute
   '/resultaten': typeof ResultatenRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stellingen': typeof StellingenRoute
   '/voorstellen': typeof VoorstellenRoute
   '/discussie/$id': typeof DiscussieIdRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/profiel'
     | '/resultaten'
     | '/sitemap.xml'
+    | '/stellingen'
     | '/voorstellen'
     | '/discussie/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/profiel'
     | '/resultaten'
     | '/sitemap.xml'
+    | '/stellingen'
     | '/voorstellen'
     | '/discussie/$id'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/profiel'
     | '/resultaten'
     | '/sitemap.xml'
+    | '/stellingen'
     | '/voorstellen'
     | '/discussie/$id'
   fileRoutesById: FileRoutesById
@@ -130,45 +142,18 @@ export interface RootRouteChildren {
   ProfielRoute: typeof ProfielRoute
   ResultatenRoute: typeof ResultatenRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StellingenRoute: typeof StellingenRoute
   VoorstellenRoute: typeof VoorstellenRoute
   DiscussieIdRoute: typeof DiscussieIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/voorstellen': {
-      id: '/voorstellen'
-      path: '/voorstellen'
-      fullPath: '/voorstellen'
-      preLoaderRoute: typeof VoorstellenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resultaten': {
-      id: '/resultaten'
-      path: '/resultaten'
-      fullPath: '/resultaten'
-      preLoaderRoute: typeof ResultatenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profiel': {
-      id: '/profiel'
-      path: '/profiel'
-      fullPath: '/profiel'
-      preLoaderRoute: typeof ProfielRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/nieuws': {
-      id: '/nieuws'
-      path: '/nieuws'
-      fullPath: '/nieuws'
-      preLoaderRoute: typeof NieuwsRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -178,11 +163,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/nieuws': {
+      id: '/nieuws'
+      path: '/nieuws'
+      fullPath: '/nieuws'
+      preLoaderRoute: typeof NieuwsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profiel': {
+      id: '/profiel'
+      path: '/profiel'
+      fullPath: '/profiel'
+      preLoaderRoute: typeof ProfielRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resultaten': {
+      id: '/resultaten'
+      path: '/resultaten'
+      fullPath: '/resultaten'
+      preLoaderRoute: typeof ResultatenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stellingen': {
+      id: '/stellingen'
+      path: '/stellingen'
+      fullPath: '/stellingen'
+      preLoaderRoute: typeof StellingenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voorstellen': {
+      id: '/voorstellen'
+      path: '/voorstellen'
+      fullPath: '/voorstellen'
+      preLoaderRoute: typeof VoorstellenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/discussie/$id': {
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfielRoute: ProfielRoute,
   ResultatenRoute: ResultatenRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StellingenRoute: StellingenRoute,
   VoorstellenRoute: VoorstellenRoute,
   DiscussieIdRoute: DiscussieIdRoute,
 }
