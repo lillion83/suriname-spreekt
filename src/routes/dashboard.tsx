@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ModerationPanel } from "@/components/ModerationPanel";
 import { useI18n } from "@/lib/i18n";
 import { statements, categoryLabel, seedComments, type Category } from "@/data/statements";
 import { useMemo } from "react";
@@ -306,6 +307,7 @@ function DashboardPage() {
             />
           </Card>
         </section>
+        <ModerationPanel />
       </main>
 
       <Footer />
