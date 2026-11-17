@@ -99,6 +99,23 @@ function NewsFeature({
     <article className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-7">
       {/* News column */}
       <div className="lg:col-span-7 flex flex-col">
+        <div className="mb-4">
+          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            <span>{formatDate(item.publishedAt, lang)}</span>
+            <span>·</span>
+            <span>{item.source}</span>
+          </div>
+          <h2
+            className={
+              featured
+                ? "mt-2 font-display text-3xl md:text-4xl lg:text-5xl leading-[1.02] tracking-tight"
+                : "mt-2 font-display text-2xl md:text-3xl leading-[1.05] tracking-tight"
+            }
+          >
+            {title}
+          </h2>
+        </div>
+
         <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-card-soft group">
           <div className={featured ? "aspect-[16/9]" : "aspect-[16/10]"}>
             <img
@@ -116,23 +133,7 @@ function NewsFeature({
           </div>
         </div>
 
-        <div className="mt-5">
-          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-            <span>{formatDate(item.publishedAt, lang)}</span>
-            <span>·</span>
-            <span>{item.source}</span>
-          </div>
-          <h2
-            className={
-              featured
-                ? "mt-2 font-display text-3xl md:text-4xl lg:text-5xl leading-[1.02] tracking-tight"
-                : "mt-2 font-display text-2xl md:text-3xl leading-[1.05] tracking-tight"
-            }
-          >
-            {title}
-          </h2>
-          <p className="mt-3 text-muted-foreground leading-relaxed">{summary}</p>
-        </div>
+        <p className="mt-4 text-muted-foreground leading-relaxed">{summary}</p>
       </div>
 
       {/* Linked statement column */}
