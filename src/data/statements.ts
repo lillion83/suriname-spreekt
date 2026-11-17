@@ -18,6 +18,19 @@ export interface Statement {
 
 export const statements: Statement[] = [
   {
+    id: "haven-investering",
+    category: "economie",
+    nl: "De nieuwe investering in de haven van Paramaribo zal de economie versterken.",
+    en: "The new investment in the port of Paramaribo will strengthen the economy.",
+    contextNl:
+      "Een internationaal consortium wil de containercapaciteit van de haven met 60% uitbreiden en een tweede aanlegsteiger bouwen. De regering verwacht 1.200 nieuwe banen. Critici vragen zich af wie de winst opstrijkt en wat de gevolgen zijn voor het milieu langs de rivier.",
+    contextEn:
+      "An international consortium plans to expand the port's container capacity by 60% and build a second pier. The government expects 1,200 new jobs. Critics ask who will profit and what the impact on the river environment will be.",
+    votes: { agree: 3412, neutral: 702, disagree: 1188 },
+    hot: true,
+    publishedAt: "2026-05-30",
+  },
+  {
     id: "valuta-stabiliteit",
     category: "economie",
     nl: "De SRD moet gekoppeld worden aan een sterkere buitenlandse munt om stabiliteit te garanderen.",

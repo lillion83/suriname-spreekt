@@ -27,7 +27,7 @@ export const news: NewsItem[] = [
     image: havenImg.url,
     source: "De Ware Tijd",
     publishedAt: "2026-05-30",
-    statementId: "kleinschalige-landbouw",
+    statementId: "haven-investering",
   },
   {
     id: "n-amazone-wet",
