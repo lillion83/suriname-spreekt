@@ -23,7 +23,6 @@ export const Route = createFileRoute("/")({
         content: "Nieuws gekoppeld aan stellingen. Direct stemmen, direct resultaat.",
       },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:title", content: "Suriname Spreekt — Nieuws & stellingen" },
     ],
   }),
   component: HomePage,
@@ -89,7 +88,7 @@ function NewsFeature({
   item: (typeof news)[number];
   featured?: boolean;
 }) {
-  const { lang, t } = useI18n();
+  const { lang } = useI18n();
   const statement = getStatement(item.statementId);
   if (!statement) return null;
 

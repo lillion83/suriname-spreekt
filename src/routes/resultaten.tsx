@@ -10,8 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export const Route = createFileRoute("/resultaten")({
   head: () => ({
     meta: [
-      { title: "Resultaten — Suriname Spreekt" },
+      { title: "Alle stellingen — Suriname Spreekt" },
       { name: "description", content: "Overzicht van alle actieve en afgesloten stellingen, gefilterd op categorie en datum." },
+      { property: "og:title", content: "Alle stellingen — Suriname Spreekt" },
+      { property: "og:description", content: "Alle actieve en afgesloten stellingen, filter op categorie en datum." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: ResultatenPage,

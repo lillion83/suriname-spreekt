@@ -5,7 +5,7 @@ type Dict = Record<string, { nl: string; en: string }>;
 
 const dict: Dict = {
   "nav.home": { nl: "Home", en: "Home" },
-  "nav.results": { nl: "Resultaten", en: "Results" },
+  "nav.results": { nl: "Stellingen", en: "Statements" },
   "nav.discuss": { nl: "Discussie", en: "Discussion" },
   "nav.profile": { nl: "Profiel", en: "Profile" },
   "nav.about": { nl: "Over ons", en: "About" },
